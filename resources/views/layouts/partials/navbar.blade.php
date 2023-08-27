@@ -15,7 +15,7 @@
 
       @auth
         <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 ml-2">
-            Welcome, {{auth()->user()->username}}
+            Welcome, {{ auth()->user()->name ?  auth()->user()->name : auth()->user()->username }}
         </div>
         <div class="text-end">
           <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Logout</a>

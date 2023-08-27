@@ -15,6 +15,4 @@
       </div>
     </div>
   </div>
-
-  {{ (Route::currentRouteName() === 'dashboard.index') ? 'current page' : 'not current' }}
 @endsection

@@ -41,6 +41,8 @@ class LoginController extends Controller
         
         Auth::login($user);
 
+        //dd( $user->name );
+
         return $this->authenticated($request, $user);
     }
 

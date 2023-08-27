@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group form-floating mb-3">
-            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Name" required="required" autofocus>
+            <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Name" required="required">
             <label for="floatingName">Name</label>
             @if ($errors->has('name'))
                 <span class="text-danger text-left">{{ $errors->first('name') }}</span>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="form-group form-floating mb-3">
-            <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username" required="required" autofocus>
+            <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username" required="required">
             <label for="floatingName">Username</label>
             @if ($errors->has('username'))
                 <span class="text-danger text-left">{{ $errors->first('username') }}</span>

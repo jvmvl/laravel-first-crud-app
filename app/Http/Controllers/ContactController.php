@@ -92,6 +92,12 @@ class ContactController extends Controller
      */
     public function edit(string $id): View {
 
+        // Check if the user has the admin role
+        /*if (auth()->user()->type !== 'admin') {
+            //return abort('failed' => 'Unauthorized');
+            return abort(403, 'Unauthorized action.');
+        }*/
+
         $contact = Contact::findOrFail($id);
         $countries = Countries::all();
 
@@ -137,7 +143,7 @@ class ContactController extends Controller
         // Check if the user has the admin role
         if (auth()->user()->type !== 'admin') {
             return to_route('contacts.index')
-            ->with('failed', 'Delete Unauthorized');
+            ->with('failed', 'Unauthorized');
         }
 
         $contact = Contact::find($id);

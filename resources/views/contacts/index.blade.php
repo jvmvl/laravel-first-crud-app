@@ -5,8 +5,10 @@
 @section('content')
   <div class="row">
     <div class="col-sm-12">
-        <h1 class="display-3">Contacts</h1>   
+        <h1 class="display-3">Contacts</h1> 
+        @if(auth()->user()->type === 'admin')  
         <a href="{{ route('contacts.create') }}" class="btn btn-primary">Add contact</a> 
+        @endif
       <table class="table table-striped">
         <thead>
             <tr>
@@ -28,8 +30,16 @@
                 <td>{{$contact->city}}</td>
                 <td>{{$contact->countries->name??'Unknown'}}</td>
                 <td>{{Carbon::parse($contact->created_at)->format('Y-m-d H:i:s')}}</td>
+                
                 <td><a href="{{ route('contacts.show', $contact->id)}}" class="btn btn-success">View</a></td>
-                <td><a href="{{ route('contacts.edit', $contact->id)}}" class="btn btn-primary">Edit</a></td>
+
+                @if(auth()->user()->type === 'admin')
+                <td>
+                  
+                    <a href="{{ route('contacts.edit', $contact->id)}}" class="btn {{ ($contact->created_at->eq($contact->updated_at)) ? 'btn-primary' : 'btn-secondary' }}" >Edit</a>
+                  
+                  
+                </td>
                 <td>
                     <form action="{{ route('contacts.destroy', $contact->id)}}" method="post">
                       @csrf
@@ -37,6 +47,7 @@
                       <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
                 </td>
+                @endif
             </tr>
             @endforeach
         </tbody>

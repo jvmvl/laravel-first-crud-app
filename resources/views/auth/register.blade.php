@@ -2,9 +2,12 @@
 
 @section('content')
     <form method="post" action="{{ route('register.perform') }}">
-
+        @method('post')
+        @csrf
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-        <img class="mb-4" src="{!! url('images/bootstrap-logo.svg') !!}" alt="" width="72" height="57">
+        <div class="text-center">
+            <img class="mb-4" src="{!! asset('images/logo.png') !!}" alt="" width="200">
+        </div>
         
         <h1 class="h3 mb-3 fw-normal">Register</h1>
 
@@ -49,7 +52,9 @@
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
-        
-        @include('auth.partials.copy')
+        <a href="{{ route('login.show') }}" class="w-100 mt-2 py-2 text-center btn btn-link" style="text-decoration:none;">Login</a>
+
     </form>
+    @include('auth.partials.copy')
+
 @endsection

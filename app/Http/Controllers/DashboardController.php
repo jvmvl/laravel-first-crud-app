@@ -15,12 +15,15 @@ class DashboardController extends Controller
      */
     public function index(): View {
         
+        $isSuperAdmin = auth()->user()->hasRole('superadmin');
+        
         $contacts = Contact::all();
         $countries = Countries::all();
 
         return view('dashboard.index', [
             'contacts' => $contacts->count(),
-            'countries' => $countries->count()
+            'countries' => $countries->count(),
+            'isSuperAdmin' => $isSuperAdmin
         ]);
     }
 }

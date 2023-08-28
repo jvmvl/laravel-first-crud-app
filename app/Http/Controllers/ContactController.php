@@ -15,6 +15,8 @@ class ContactController extends Controller
      */
     public function index(): View {
         
+        //$this->middleware('role:SUPERADMIN');
+
         $contacts = Contact::with('countries')->get();
 
         return view('contacts.index', [
@@ -139,6 +141,8 @@ class ContactController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id): RedirectResponse {
+
+        
 
         // Check if the user has the admin role
         if (auth()->user()->type !== 'admin') {

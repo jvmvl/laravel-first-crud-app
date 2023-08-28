@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +31,7 @@ Route::patch('/contacts/{contact}', [ContactController::class, 'update'])->name(
 Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
 Route::get('/contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');*/
 
+
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {   
 
@@ -42,6 +45,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             }
         }
     ]);
+
+    
 
     Route::group(['middleware' => ['guest']], function() {
 
@@ -61,6 +66,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::group(['middleware' => ['auth']], function() {
 
+        Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('superadmin', [SuperAdminController::class, 'index'])->name('superadmin.index');
+
         /**
          * Dashboard Routes
          */
@@ -73,12 +81,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('contacts', ContactController::class); //->middleware('auth');
 
         // Apply the custom middleware to these routes
-        Route::group(['middleware' => ['checkRole:admin']], function() {
+        //Route::group(['middleware' => ['checkRole:admin']], function() {
             Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
             Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
             Route::get('/contacts/{contact}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
             Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
-        });
+        //});
 
         /**
         * Logout Routes

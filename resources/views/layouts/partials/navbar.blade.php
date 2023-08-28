@@ -8,8 +8,15 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="{{ route('dashboard.index') }}" class="nav-link px-2 {{ Str::is('dashboard.*', Route::currentRouteName()) ? 'text-secondary' : 'text-white' }}">Home</a></li>
         <li><a href="{{ route('contacts.index') }}" class="nav-link px-2 {{ Str::is('contacts.*', Route::currentRouteName()) ? 'text-secondary' : 'text-white' }}">Contacts</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+        
+        @if ( auth()->user()->hasRole('admin') )
+        <li><a href="{{ route('admin.index') }}" class="nav-link px-2 {{ Str::is('admin.*', Route::currentRouteName()) ? 'text-secondary' : 'text-white' }}">Admin</a></li>
+        @endif
+
+        @if ( auth()->user()->hasRole('superadmin') )
+        <li><a href="{{ route('superadmin.index') }}" class="nav-link px-2 {{ Str::is('superadmin.*', Route::currentRouteName()) ? 'text-secondary' : 'text-white' }}">Superadmin</a></li>
+        @endif
+
         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
 

@@ -15,4 +15,6 @@
       </div>
     </div>
   </div>
+
+  {{ $isSuperAdmin ? 'You are authorized :)': 'You are unauthorized :(' }}
 @endsection

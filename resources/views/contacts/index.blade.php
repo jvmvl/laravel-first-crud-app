@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-sm-12">
         <h1 class="display-3">Contacts</h1> 
-        @if(auth()->user()->type === 'admin')  
+        @if( auth()->user()->hasAnyRole(['superadmin', 'admin']) )
         <a href="{{ route('contacts.create') }}" class="btn btn-primary">Add contact</a> 
         @endif
       <table class="table table-striped">
@@ -33,13 +33,13 @@
                 
                 <td><a href="{{ route('contacts.show', $contact->id)}}" class="btn btn-success">View</a></td>
 
-                @if(auth()->user()->type === 'admin')
+                @if( auth()->user()->hasAnyRole(['superadmin', 'admin']) )
                 <td>
-                  
                     <a href="{{ route('contacts.edit', $contact->id)}}" class="btn {{ ($contact->created_at->eq($contact->updated_at)) ? 'btn-primary' : 'btn-secondary' }}" >Edit</a>
-                  
-                  
                 </td>
+                @endif
+
+                @if(auth()->user()->hasRole('superadmin'))
                 <td>
                     <form action="{{ route('contacts.destroy', $contact->id)}}" method="post">
                       @csrf
@@ -48,6 +48,7 @@
                     </form>
                 </td>
                 @endif
+
             </tr>
             @endforeach
         </tbody>
